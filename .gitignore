@@ -1,3 +1,5 @@
 .ps_project/*
 .env
 *.swp
+.ipynb_checkpoints/*
+**/__pycache__/*
