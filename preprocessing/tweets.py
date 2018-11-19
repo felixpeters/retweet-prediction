@@ -19,7 +19,7 @@ def extract_content(tweets):
         result.append(tokenize(text))
     return result
 
-def extract_additional_features(tweets):
+def extract_metadata(tweets):
     """
     Extracts additional information from tweet objects, such as number of
     followers, friends, account age etc.

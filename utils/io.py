@@ -1,5 +1,6 @@
 import h5py
 import json
+from twitter import Status, Url, User, Hashtag
 
 def save_array(fname, data, dname):
     with h5py.File(fname, 'w') as hf:
@@ -36,4 +37,29 @@ def load_txt(fname):
         for line in f:
             data.append(line)
     return data
+
+def load_tweets(fname):
+    data = []
+    with open(fname) as f:
+        for line in f:
+            data.append(json.loads(line))
+    tweets = [new_tweet_from_json(d) for d in data]
+    tweets = [t for t in tweets if t.retweeted_status == None]
+    return tweets
+
+def new_tweet_from_json(data):
+    tweet = Status.NewFromJsonDict(data)
+    if 'urls' in data:
+        tweet.urls = [Url.NewFromJsonDict(u) for u in data['urls']]
+    else:
+        tweet.urls = []
+    if 'user_mentions' in data:
+        tweet.user_mentions = [User.NewFromJsonDict(u) for u in data['user_mentions']]
+    else:
+        tweet.user_mentions = []
+    if 'hashtags' in data:
+        tweet.hashtags = [Hashtag.NewFromJsonDict(h) for h in data['hashtags']]
+    else:
+        tweet.hashtags = []
+    return tweet
 
