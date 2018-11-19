@@ -1,7 +1,7 @@
 from datetime import tzinfo, datetime, timedelta
 import numpy as np
 from dateutil.parser import parse
-from utils.time import UTC
+from .utils.time import UTC
 from textblob import TextBlob
 
 def account_age(tweet):

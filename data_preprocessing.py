@@ -1,6 +1,6 @@
 import numpy as np
-from preprocessing.tweets import extract_content, extract_metadata, extract_labels 
-from utils.io import load_tweets, save_txt, save_array
+from retpred.tweets import extract_content, extract_metadata, extract_labels
+from retpred.utils.io import load_tweets, save_txt, save_array
 
 # define constants
 FILES = ['tweets_1.json', 

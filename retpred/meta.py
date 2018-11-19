@@ -1,7 +1,7 @@
 from datetime import tzinfo, datetime
 import numpy as np
 from dateutil.parser import parse
-from utils.time import UTC
+from .utils.time import UTC
 from .features import *
 
 class FeatureGenerator():
