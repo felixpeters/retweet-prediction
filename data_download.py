@@ -1,10 +1,11 @@
 import os
+from subprocess import call
 import boto3
 from dotenv import find_dotenv, load_dotenv
 
 # set constants
 BUCKET = 'tep-research-project'
-FILES = []
+FILES = ['tweets.zip', 'transfer.zip']
 DESTINATION = '/storage/'
 
 # load credentials from environment variables
@@ -22,3 +23,7 @@ client = boto3.client(
 # download files
 for f in FILES:
     client.download_file(BUCKET, f, DESTINATION + f)
+
+# unzip archives
+call(["unzip", "/storage/*.zip", "-d", "/storage/"])
+call(["ls", "-lh", "/storage/"])
