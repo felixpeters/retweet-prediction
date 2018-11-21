@@ -2,6 +2,7 @@
 FROM tensorflow/tensorflow:latest-py3
 
 # install required packages
+RUN apt-get update && apt-get install tree
 RUN pip install boto3
 RUN pip install -U textblob
 RUN pip install awscli --upgrade
