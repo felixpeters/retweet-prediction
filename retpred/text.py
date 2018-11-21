@@ -77,6 +77,9 @@ def tokenize(input):
     input = re.sub(r'aren[\'’]t', 'are not', input)
     input = re.sub(r'won[\'’]t', 'will not', input)
     input = re.sub(r'don[\'’]t', 'do not', input)
+    input = re.sub(r'can[\'’]t', 'can not', input)
+    input = re.sub(r'wouldn[\'’]t', 'would not', input)
+    input = re.sub(r'couldn[\'’]t', 'could not', input)
     input = re.sub(r'doesn[\'’]t', 'does not', input)
     input = re.sub(r'[\'’]s', '', input)
     # filter unicode characters
