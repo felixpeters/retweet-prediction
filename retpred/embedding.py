@@ -13,6 +13,7 @@ class SequencePreprocessor():
         self.word_index = {}
         self.embeddings_index = {}
         self.embedding_dimension = 0
+        self.num_words = num_words
         self.tokenizer = Tokenizer(num_words=num_words, filters='"”“#$%&()*+,/=@[]^_´`‘{|}~\t\n\\`"')
 
     def get_word_index(self, texts):
@@ -76,10 +77,10 @@ class SequencePreprocessor():
         """
         Creates embedding matrix from word and embeddings indices.
         """
-        embedding_matrix = np.zeros((len(self.word_index) + 1, self.embedding_dimension)) 
+        embedding_matrix = np.zeros((self.num_words + 1, self.embedding_dimension)) 
         for word, i in self.word_index.items():
             embedding_vector = self.embeddings_index.get(word)
-            if embedding_vector is not None:
+            if embedding_vector is not None and i <= self.num_words:
                 # words not found will stay all-zeros
                 embedding_matrix[i] = embedding_vector
         return embedding_matrix
