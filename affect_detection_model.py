@@ -6,25 +6,26 @@ from retpred.utils.model import load_architecture, save_architecture
 from retpred.utils.train import min_val_loss
 
 # model constants
-MODEL_PATH = '/storage/transfer_topic/'
-MODEL_NAME = 'transfer_topic'
+AFFECT = 'joy'
+MODEL_PATH = '/storage/transfer_{}/'.format(AFFECT)
+MODEL_NAME = 'transfer_{}'.format(AFFECT)
 BASE_MODEL_PATH = '/storage/language_models/regular_lstm'
 DATA_PATH = '/storage/'
 DROPOUT = 0.0
-EPOCHS = 100
+EPOCHS = 50
 BATCH_SIZE = 128
-NUM_CLASSES = 13
+NUM_CLASSES = 4
 
 # create storage folder
 call(['mkdir', '-p', MODEL_PATH])
 
 # load and prepare data
-seqs = load_array(DATA_PATH + 'topic_seqs.hdf5', 'topic_seqs')
+seqs = load_array(DATA_PATH + '{}_seqs.hdf5'.format(AFFECT), '{}_seqs'.format(AFFECT))
 # cut first leading 0 in order to conform with language model sequence length
 # TODO: retrain language model with 32-dimensional sequences
 seqs = seqs[:,1:]
 print('loaded {} input sequences with length {}'.format(seqs.shape[0], seqs.shape[1]))
-labels = load_array(DATA_PATH + 'topic/topic_labels.hdf5', 'topic_labels')
+labels = load_array(DATA_PATH + 'sentiment/{}_labels.hdf5'.format(AFFECT), '{}_labels'.format(AFFECT))
 labels = to_categorical(labels, num_classes=NUM_CLASSES)
 print('loaded {} outputs with {} classes'.format(labels.shape[0], labels.shape[1]))
 
@@ -34,7 +35,7 @@ model.load_weights(BASE_MODEL_PATH + '.hdf5')
 print('loaded base model architecture and weights from {}'.format(BASE_MODEL_PATH))
 
 # define callbacks
-cbs = callbacks(MODEL_PATH, MODEL_NAME)
+cbs = callbacks(MODEL_PATH, MODEL_NAME, early_stopping=False)
 
 # load model
 model = transfer_model(model, NUM_CLASSES, dropout=DROPOUT)
@@ -43,8 +44,8 @@ save_architecture(fname, model)
 print('model architecture saved to file {}'.format(fname))
 
 # create training and validation sets
-x_trn = seqs[:-1000]
-y_trn = labels[:-1000]
+x_trn = seqs[:1000]
+y_trn = labels[:1000]
 x_val = seqs[-1000:]
 y_val = labels[-1000:]
 print('created training set with {} examples'.format(x_trn.shape[0]))
