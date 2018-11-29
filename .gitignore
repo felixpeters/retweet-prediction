@@ -1,6 +1,7 @@
 .ps_project/*
 .env
 *.swp
+*.swo
 .ipynb_checkpoints/*
 **/__pycache__/*
 .aws*
