@@ -16,7 +16,7 @@ BATCH_SIZE = 128
 NUM_CLASSES = 16
 
 # create storage folder
-call(['call', '-p', MODEL_PATH])
+call(['mkdir', '-p', MODEL_PATH])
 
 # load and prepare data
 seqs = load_array(DATA_PATH + 'topic_seqs.hdf5', 'topic_seqs')
