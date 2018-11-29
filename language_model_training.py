@@ -3,7 +3,7 @@ from subprocess import call
 from retpred.utils.io import load_array
 from retpred.utils.model import save_architecture
 from retpred.utils.train import min_val_loss
-from retpred.lm import lstm_language_model, callbacks
+from retpred.language import lstm_language_model, callbacks
 
 # set model parameters
 MODEL_PATH = '/storage/language_models/'
