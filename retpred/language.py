@@ -1,6 +1,5 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Embedding, Dropout
-from tensorflow.keras.layers import Dense, LSTM, Embedding, Dropout
 from tensorflow.keras.regularizers import l2
 from .utils.train import callbacks as std_callbacks
 from .utils.train import ClassificationMetrics
@@ -27,7 +26,7 @@ def lstm_language_model(emb_mat, vocab_size=20001, emb_dim=200, seq_len=31, emb_
             metrics=['accuracy'])
     return model
 
-def callbacks(model_path, model_name, early_stopping=False):
+def callbacks(model_path, model_name, early_stopping=True):
     cbs = std_callbacks(model_path, model_name, early_stopping=early_stopping)
     metrics_logger = ClassificationMetrics()
     cbs.append(metrics_logger)

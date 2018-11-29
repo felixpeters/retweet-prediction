@@ -7,13 +7,13 @@ from retpred.lm import lstm_language_model, callbacks
 
 # set model parameters
 MODEL_PATH = '/storage/language_models/'
-MODEL_NAME = 'variational_lstm'
-LSTM_UNITS = 64
-EMB_DROPOUT = 0.25
-LSTM_DROPOUT = 0.25
-OUTPUT_DROPOUT = 0.25
-EPOCHS = 10
-BATCH_SIZE = 512
+MODEL_NAME = 'regular_lstm'
+LSTM_UNITS = 128
+EMB_DROPOUT = 0.0
+LSTM_DROPOUT = 0.0
+OUTPUT_DROPOUT = 0.0
+EPOCHS = 100
+BATCH_SIZE = 1024
 
 # create storage folder
 call(['mkdir', '-p', MODEL_PATH])
@@ -42,8 +42,8 @@ save_architecture(fname, model)
 print('model archicture saved to file {}'.format(fname))
 
 # define training and validation data
-x_trn = inputs[:10000]
-y_trn = labels[:10000]
+x_trn = inputs[:-10000]
+y_trn = labels[:-10000]
 x_val = inputs[-10000:]
 y_val = labels[-10000:]
 print('created training set with {} examples'.format(x_trn.shape[0]))
